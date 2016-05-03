@@ -1,2 +1,3 @@
 # JSON_Ajax
-Heippa Maailma
+JSON-tiedoston luku jQuery Ajax:lla
+

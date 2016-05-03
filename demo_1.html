@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+</head>
+<body>
+<h1>Ajax-demo jQueryllä</h1>
+
+	<button type="button" id="nappi">Ankkalinnan puhelinluettelo</button>
+	<br/><br/>
+	<div id="laatikko"></div>	
+	<script>
+	/*
+	Tässä esimrkissä haaetaan palvelimelta Ankkalinnan puhelinluettelo ja tulostetaan se divin sisään.
+	Ajax-tekniikka hoitaa homman taustalla lataamatta koko sivua uudelleen (jQueryllä $.ajax)	
+	url kertoo palvelimella ajettavan ohjelman/tiedoston (puhelinluettelo.json), result sisältää palvelimelta tulevan datan eli eseimerkissä JSON-muotoisen puhelinluettelon.  
+	*/
+	$(function(){	
+		$("#nappi").click(function(){
+			
+			$.ajax({url: "puhelinluettelo.json", success: function(result) {
+				//var taulukko = JSON.parse(result); //tätä ei tarvita, jos tiedosto on json-muodossa (Java Script Object Notation). Tässä esimerkissä puhelinluettelon tunnusosa on .json. Jos olisi .txt, niin tieto pitäisi parsia taulukoksi
+				
+				tulostaLuettelo(result); //lähetetään  palvelimelta tullut luettelo tulostettavaksi							 
+			} 				
+			});	
+		});	 
+	});
+	
+	//tulostetaan array  eli puhelinluettelotaulukko
+	function tulostaLuettelo(taulukko){
+		var luettelo = ""; //html-merkkijono
+		var i;
+		//Käydään taulukko läpi rivi kerralaan (i on rivinumero)
+		for(i = 0; i < taulukko.length; i++){ 
+			luettelo += taulukko[i].etunimi + " " + taulukko[i].sukunimi + " " + taulukko[i].puhelin + "<br/>";
+		}
+		$("#laatikko").html(luettelo); //Tulostus diviin
+	}	
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
